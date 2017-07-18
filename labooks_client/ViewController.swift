@@ -8,19 +8,27 @@
 
 import UIKit
 import AVFoundation
+import SwiftyJSON
 
-class ViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
+class ViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate{
 
     @IBOutlet weak var previewView: UIView!
     @IBOutlet weak var label: UILabel!
+    @IBOutlet weak var studentNumLabel: UILabel!
     
     let detectionArea = UIView()
+    
     var timer: Timer!
     var counter = 0
     var isDetected = false
+    var studentNum:String = ""
+    var books_isbn: [String] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
+//        studentNumLabel.textAlignment = .center
+        studentNumLabel.text = studentNum
+        
         
         // セッションのインスタンス生成
         let captureSession = AVCaptureSession()
@@ -97,6 +105,13 @@ class ViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
             detectionArea.layer.borderWidth = 3
             label.text = ""
         }
+    }
+    
+    
+    
+    func rent_data(sender: AnyObject){
+        var url_str = "https://elegant-bastille-81866.herokuapp.com/api/rent"
+        
     }
 }
 
