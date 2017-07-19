@@ -12,6 +12,10 @@ class StudentNumViewController: UIViewController {
 
     @IBOutlet weak var studentNumber: UITextField!
     @IBOutlet weak var sendButton: UIButton!
+    @IBAction func backToTop(segue: UIStoryboardSegue) {
+        
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -35,13 +39,18 @@ class StudentNumViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
-        guard let identifier = segue.identifier else{
-            return
-        }
-        if identifier == "addBook"{
-            let VC = segue.destination as! ViewController
-            VC.studentNum = self.studentNumber.text ?? ""
-            
+//        guard let identifier = segue.identifier else{
+//            return
+//        }
+//        if identifier == "addBook"{
+//            let VC = segue.destination as! ViewController
+//            VC.studentNum = self.studentNumber.text ?? ""
+//            
+//        }
+        if let navVC = segue.destination as? UINavigationController{
+            if let VC = navVC.viewControllers[0] as? ViewController{
+                VC.studentNum = self.studentNumber.text ?? ""
+            }
         }
     }
     

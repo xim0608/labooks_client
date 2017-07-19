@@ -43,7 +43,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="送信"/>
                                 <connections>
-                                    <segue destination="BYZ-38-t0r" kind="show" identifier="addBook" id="zne-hD-fvd"/>
+                                    <segue destination="my1-fC-roc" kind="show" identifier="addBook" id="zne-hD-fvd"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -57,7 +57,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hAJ-CL-c7U" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-794" y="139"/>
+            <point key="canvasLocation" x="86" y="139"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
@@ -76,7 +76,7 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="この枠内にバーコードを表示して下さい" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sNI-o1-gDl">
-                                <rect key="frame" x="5" y="170" width="365" height="21"/>
+                                <rect key="frame" x="5" y="214" width="365" height="21"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                 <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -130,9 +130,14 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="HRk-s4-Wcx">
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="vpK-j6-n3h">
+                            <connections>
+                                <action selector="cancel:" destination="BYZ-38-t0r" id="eDg-le-tq5"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="送信" id="hbC-Cz-nQu">
                             <connections>
-                                <action selector="sendDataToServer:" destination="BYZ-38-t0r" id="mDK-pX-b4J"/>
+                                <action selector="sendBooksData:" destination="BYZ-38-t0r" id="zjp-f6-wfh"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -143,6 +148,24 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1903.2" y="138.98050974512745"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="La1-Vo-BLd">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="my1-fC-roc" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="dJf-Uz-N17">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="yGV-m9-Rtt"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="qPs-Sb-Lag" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="964" y="138.98050974512745"/>
         </scene>

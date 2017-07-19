@@ -89,12 +89,54 @@ class ViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate{
                         isDetected = true
                         AudioServicesPlaySystemSound(kSystemSoundID_Vibrate) // バイブレーション
                         label.text = metadata.stringValue!
+//                        print(self.books_isbn.index(of: metadata.stringValue!))
+                        if self.books_isbn.index(of: metadata.stringValue!) == nil {
+                            print(metadata.stringValue!)
+                            self.books_isbn.append(metadata.stringValue!)
+                        }
+                        
                         detectionArea.layer.borderColor = UIColor.white.cgColor
                         detectionArea.layer.borderWidth = 5
                     }
                 }
             }
         }
+    }
+    
+    @IBAction func cancel(_ sender: Any) {
+        timer.invalidate()
+        self.books_isbn = []
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    @IBAction func sendBooksData(_ sender: Any) {
+        print(self.books_isbn)
+        let urlString = "https://elegant-bastille-81866.herokuapp.com/api/process"
+        var request = URLRequest(url: URL(string:urlString)!)
+        request.httpMethod = "POST"
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        let params: [String: Any] = [
+            "student_id": self.studentNum,
+            "books": self.books_isbn
+        ]
+        do{
+            request.httpBody = try JSONSerialization.data(withJSONObject: params, options: [])
+        }catch{
+            print(error.localizedDescription)
+        }
+        // use NSURLSessionDataTask
+        let task = URLSession.shared.dataTask(with: request, completionHandler: {data, response, error in
+            if (error == nil) {
+                let result = String(data: data!, encoding: .utf8)!
+                print(result)
+            } else {
+                print(error ?? "")
+            }
+        })
+        task.resume()
+        self.dismiss(animated: true, completion: nil)
+//
+        
     }
     
     func update(tm: Timer) {
@@ -107,11 +149,5 @@ class ViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate{
         }
     }
     
-    
-    
-    func rent_data(sender: AnyObject){
-        var url_str = "https://elegant-bastille-81866.herokuapp.com/api/rent"
-        
-    }
 }
 
