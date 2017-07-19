@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -138,6 +139,9 @@
                         <barButtonItem key="rightBarButtonItem" title="送信" id="hbC-Cz-nQu">
                             <connections>
                                 <action selector="sendBooksData:" destination="BYZ-38-t0r" id="zjp-f6-wfh"/>
+                                <segue destination="hrI-O0-IoT" kind="popoverPresentation" identifier="showRentalData" popoverAnchorBarButtonItem="hbC-Cz-nQu" id="Fih-yt-ZRZ">
+                                    <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
+                                </segue>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -150,6 +154,48 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1903.2" y="138.98050974512745"/>
+        </scene>
+        <!--Web View Controller-->
+        <scene sceneID="Wid-0I-euy">
+            <objects>
+                <viewController id="DIH-Lx-e8B" customClass="WebViewController" customModule="labooks_client" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="7vr-0z-ytI"/>
+                        <viewControllerLayoutGuide type="bottom" id="Q48-Yi-dYl"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="RYA-2F-y4T">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cS8-Nq-Qeg">
+                                <rect key="frame" x="16" y="64" width="343" height="603"/>
+                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </webView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="cS8-Nq-Qeg" firstAttribute="leading" secondItem="RYA-2F-y4T" secondAttribute="leadingMargin" id="4ld-0Y-EVe"/>
+                            <constraint firstItem="cS8-Nq-Qeg" firstAttribute="top" secondItem="7vr-0z-ytI" secondAttribute="bottom" id="NCN-Cq-sYx"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="cS8-Nq-Qeg" secondAttribute="trailing" id="WYU-q6-ljv"/>
+                            <constraint firstItem="Q48-Yi-dYl" firstAttribute="top" secondItem="cS8-Nq-Qeg" secondAttribute="bottom" id="iT2-ns-dLP"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="ysh-RJ-qJT">
+                        <barButtonItem key="leftBarButtonItem" title="戻る" id="kta-tH-Eld">
+                            <connections>
+                                <action selector="ば:" destination="DIH-Lx-e8B" id="qpF-2X-nL5"/>
+                                <segue destination="j5C-ag-3ni" kind="unwind" unwindAction="backToTopWithSegue:" id="IAf-9z-bZt"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="webView" destination="cS8-Nq-Qeg" id="f8y-CO-twu"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="j9K-ER-5EL" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="j5C-ag-3ni" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="3694.5" y="138.5"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="La1-Vo-BLd">
@@ -168,6 +214,24 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qPs-Sb-Lag" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="964" y="138.98050974512745"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="p1g-Ps-Ruq">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="hrI-O0-IoT" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="D1S-gi-Ad0">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="DIH-Lx-e8B" kind="relationship" relationship="rootViewController" id="VXw-JO-r5m"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="CB4-tW-dut" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3107.5" y="138.5"/>
         </scene>
     </scenes>
 </document>

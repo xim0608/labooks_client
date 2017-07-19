@@ -134,9 +134,8 @@ class ViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate{
             }
         })
         task.resume()
+        performSegue(withIdentifier: "showRentalData", sender: nil)
         self.dismiss(animated: true, completion: nil)
-//
-        
     }
     
     func update(tm: Timer) {
