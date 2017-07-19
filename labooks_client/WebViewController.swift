@@ -9,13 +9,16 @@
 import UIKit
 
 class WebViewController: UIViewController, UIWebViewDelegate {
-
+    var studentNum:String = ""
     @IBOutlet weak var webView: UIWebView!
     
     override func viewDidLoad() {
-        webView.delegate = self
+        
         super.viewDidLoad()
-        let urlString = "https://elegant-bastille-81866.herokuapp.com/api/rentals/18115233"
+        usleep(5000000)
+        
+        webView.delegate = self
+        let urlString = "https://elegant-bastille-81866.herokuapp.com/api/rentals/" + self.studentNum
         var request = URLRequest(url: URL(string:urlString)!)
         webView.loadRequest(request)
 
@@ -23,6 +26,7 @@ class WebViewController: UIViewController, UIWebViewDelegate {
 
         // Do any additional setup after loading the view.
     }
+    func 
 
     @IBAction func backToTop(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)

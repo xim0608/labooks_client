@@ -10,6 +10,7 @@ import UIKit
 import AVFoundation
 import SwiftyJSON
 
+
 class ViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate{
 
     @IBOutlet weak var previewView: UIView!
@@ -91,7 +92,7 @@ class ViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate{
                         label.text = metadata.stringValue!
 //                        print(self.books_isbn.index(of: metadata.stringValue!))
                         if self.books_isbn.index(of: metadata.stringValue!) == nil {
-                            print(metadata.stringValue!)
+                            print(self.books_isbn)
                             self.books_isbn.append(metadata.stringValue!)
                         }
                         
@@ -110,33 +111,46 @@ class ViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate{
     }
     
     @IBAction func sendBooksData(_ sender: Any) {
-        print(self.books_isbn)
-        let urlString = "https://elegant-bastille-81866.herokuapp.com/api/process"
-        var request = URLRequest(url: URL(string:urlString)!)
-        request.httpMethod = "POST"
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        let params: [String: Any] = [
-            "student_id": self.studentNum,
-            "books": self.books_isbn
-        ]
-        do{
-            request.httpBody = try JSONSerialization.data(withJSONObject: params, options: [])
-        }catch{
-            print(error.localizedDescription)
-        }
-        // use NSURLSessionDataTask
-        let task = URLSession.shared.dataTask(with: request, completionHandler: {data, response, error in
-            if (error == nil) {
-                let result = String(data: data!, encoding: .utf8)!
-                print(result)
-            } else {
-                print(error ?? "")
-            }
-        })
-        task.resume()
-        performSegue(withIdentifier: "showRentalData", sender: nil)
+        
+        
         self.dismiss(animated: true, completion: nil)
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if let navVC = segue.destination as? UINavigationController{
+            if let webViewVC = navVC.viewControllers[0] as? WebViewController{
+                print(self.books_isbn)
+                let urlString = "https://elegant-bastille-81866.herokuapp.com/api/process"
+                var request = URLRequest(url: URL(string:urlString)!)
+                request.httpMethod = "POST"
+                request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+                let params: [String: Any] = [
+                    "student_id": self.studentNum,
+                    "books": self.books_isbn
+                ]
+                print(params)
+                do{
+                    request.httpBody = try JSONSerialization.data(withJSONObject: params, options: [])
+                }catch{
+                    print(error.localizedDescription)
+                }
+                // use NSURLSessionDataTask
+                let task = URLSession.shared.dataTask(with: request, completionHandler: {data, response, error in
+                    if (error == nil) {
+                        let result = String(data: data!, encoding: .utf8)!
+                        print(result)
+                    } else {
+                        print(error ?? "")
+                    }
+                })
+                task.resume()
+                self.books_isbn = []
+                webViewVC.studentNum = self.studentNum
+            }
+        }
+    }
+
     
     func update(tm: Timer) {
         counter += 1
