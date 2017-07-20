@@ -1,0 +1,6 @@
+framework module Pods_labooks_client {
+  umbrella header "Pods-labooks_client-umbrella.h"
+
+  export *
+  module * { export * }
+}

@@ -1,18 +1,69 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="jOa-f6-hjl">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
+        <!--Student Num View Controller-->
+        <scene sceneID="DBx-xk-sIr">
+            <objects>
+                <viewController id="jOa-f6-hjl" customClass="StudentNumViewController" customModule="labooks_client" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="sd7-Yi-Mv0"/>
+                        <viewControllerLayoutGuide type="bottom" id="ArW-Fn-Kts"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="e7c-pP-WJg">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="CPQ-oz-pcQ">
+                                <rect key="frame" x="57" y="318" width="193" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <action selector="studentNumFieldChanged:" destination="jOa-f6-hjl" eventType="editingChanged" id="de9-VV-PYs"/>
+                                </connections>
+                            </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="学籍番号" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Rx-bW-7jg">
+                                <rect key="frame" x="86" y="274" width="70" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JMl-o3-65U">
+                                <rect key="frame" x="281" y="318" width="31" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="送信"/>
+                                <connections>
+                                    <segue destination="my1-fC-roc" kind="show" identifier="addBook" id="zne-hD-fvd"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="ybd-C8-4PU"/>
+                    <connections>
+                        <outlet property="sendButton" destination="JMl-o3-65U" id="gLH-nN-8A7"/>
+                        <outlet property="studentNumber" destination="CPQ-oz-pcQ" id="QjC-S0-ljT"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hAJ-CL-c7U" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="86" y="139"/>
+        </scene>
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="AVCaptureMetadataOutputSample_EAN13CodeReader" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="labooks_client" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -26,7 +77,7 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="この枠内にバーコードを表示して下さい" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sNI-o1-gDl">
-                                <rect key="frame" x="5" y="170" width="365" height="21"/>
+                                <rect key="frame" x="5" y="214" width="365" height="21"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                 <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -43,6 +94,19 @@
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YXz-22-0yP" userLabel="StudentNum View">
+                                        <rect key="frame" x="67" y="-9" width="240" height="29"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pZZ-ih-OTF">
+                                                <rect key="frame" x="0.0" y="4" width="243" height="21"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    </view>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -66,14 +130,108 @@
                             <constraint firstItem="hWO-UZ-U8W" firstAttribute="top" secondItem="a8r-3r-p5h" secondAttribute="bottom" id="yQJ-A7-Jw5"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="HRk-s4-Wcx">
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="vpK-j6-n3h">
+                            <connections>
+                                <action selector="cancel:" destination="BYZ-38-t0r" id="eDg-le-tq5"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="送信" id="hbC-Cz-nQu">
+                            <connections>
+                                <action selector="sendBooksData:" destination="BYZ-38-t0r" id="zjp-f6-wfh"/>
+                                <segue destination="hrI-O0-IoT" kind="popoverPresentation" identifier="showRentalData" popoverAnchorBarButtonItem="hbC-Cz-nQu" id="Fih-yt-ZRZ">
+                                    <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
+                                </segue>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="label" destination="BF0-gp-4cX" id="eyP-lu-LW2"/>
                         <outlet property="previewView" destination="a8r-3r-p5h" id="gfo-bY-dfC"/>
+                        <outlet property="studentNumLabel" destination="pZZ-ih-OTF" id="naW-QX-OeZ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="136.80000000000001" y="138.98050974512745"/>
+            <point key="canvasLocation" x="1903.2" y="138.98050974512745"/>
+        </scene>
+        <!--Web View Controller-->
+        <scene sceneID="Wid-0I-euy">
+            <objects>
+                <viewController id="DIH-Lx-e8B" customClass="WebViewController" customModule="labooks_client" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="7vr-0z-ytI"/>
+                        <viewControllerLayoutGuide type="bottom" id="Q48-Yi-dYl"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="RYA-2F-y4T">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cS8-Nq-Qeg">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </webView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Q48-Yi-dYl" firstAttribute="top" secondItem="cS8-Nq-Qeg" secondAttribute="bottom" id="4Gs-Rx-5Jp"/>
+                            <constraint firstItem="cS8-Nq-Qeg" firstAttribute="leading" secondItem="RYA-2F-y4T" secondAttribute="leadingMargin" constant="-16" id="H0N-Id-FuR"/>
+                            <constraint firstItem="cS8-Nq-Qeg" firstAttribute="trailing" secondItem="RYA-2F-y4T" secondAttribute="trailingMargin" constant="16" id="q3R-p2-6cR"/>
+                            <constraint firstItem="cS8-Nq-Qeg" firstAttribute="top" secondItem="RYA-2F-y4T" secondAttribute="topMargin" id="uD0-xX-MDv"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="ysh-RJ-qJT">
+                        <barButtonItem key="leftBarButtonItem" title="戻る" id="kta-tH-Eld">
+                            <connections>
+                                <action selector="ば:" destination="DIH-Lx-e8B" id="qpF-2X-nL5"/>
+                                <segue destination="j5C-ag-3ni" kind="unwind" unwindAction="backToTopWithSegue:" id="IAf-9z-bZt"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="webView" destination="cS8-Nq-Qeg" id="f8y-CO-twu"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="j9K-ER-5EL" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="j5C-ag-3ni" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="3694.5" y="138.5"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="La1-Vo-BLd">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="my1-fC-roc" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="dJf-Uz-N17">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="yGV-m9-Rtt"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="qPs-Sb-Lag" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="964" y="138.98050974512745"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="p1g-Ps-Ruq">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="hrI-O0-IoT" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="D1S-gi-Ad0">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="DIH-Lx-e8B" kind="relationship" relationship="rootViewController" id="VXw-JO-r5m"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="CB4-tW-dut" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3107.5" y="138.5"/>
         </scene>
     </scenes>
 </document>
