@@ -1,2 +1,3 @@
-# AVCaptureMetadataOutputSample_EAN13CodeReader
-AVFoundation(AVCaptureMetadataOutput)を使用したバーコードリーダーのサンプル
+# LaBooks貸出処理端末向けアプリケーション
+研究室の蔵書管理を行うLaBooksの貸出処理を行う端末向けのアプリケーションです。
+バーコード読み取り部分は[https://github.com/furuya02/AVCaptureMetadataOutputSample_EAN13CodeReader]を利用させていただきました

@@ -15,7 +15,7 @@ class WebViewController: UIViewController, UIWebViewDelegate {
     override func viewDidLoad() {
         
         super.viewDidLoad()
-        usleep(5000000)
+        usleep(3000000)
         
         webView.delegate = self
         let urlString = "https://elegant-bastille-81866.herokuapp.com/api/rentals/" + self.studentNum
@@ -26,7 +26,7 @@ class WebViewController: UIViewController, UIWebViewDelegate {
 
         // Do any additional setup after loading the view.
     }
-    func 
+    
 
     @IBAction func backToTop(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
