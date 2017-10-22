@@ -9,6 +9,7 @@
 import UIKit
 import AVFoundation
 import SwiftyJSON
+import Alamofire
 
 
 class ViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate{
@@ -18,6 +19,7 @@ class ViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate{
     @IBOutlet weak var studentNumLabel: UILabel!
     
     let detectionArea = UIView()
+    
     
     var timer: Timer!
     var counter = 0
@@ -93,7 +95,20 @@ class ViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate{
 //                        print(self.books_isbn.index(of: metadata.stringValue!))
                         if self.books_isbn.index(of: metadata.stringValue!) == nil {
                             print(self.books_isbn)
-                            self.books_isbn.append(metadata.stringValue!)
+                            let tmp = metadata.stringValue!
+                            check_book(isbn: tmp)
+                            self.books_isbn.append(tmp)
+                        } else {
+                            let alert1 = UIAlertController(title: "すでにスキャン済みです", message: "", preferredStyle: UIAlertControllerStyle.alert)
+                            
+                            let check_presence = UIAlertAction(title: "閉じる", style: UIAlertActionStyle.default, handler: {
+                                (action: UIAlertAction!) in
+                                
+                            })
+                           
+                            alert1.addAction(check_presence)
+                            
+                            self.present(alert1, animated: true, completion: nil)
                         }
                         
                         detectionArea.layer.borderColor = UIColor.white.cgColor
@@ -121,7 +136,7 @@ class ViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate{
         if let navVC = segue.destination as? UINavigationController{
             if let webViewVC = navVC.viewControllers[0] as? WebViewController{
                 print(self.books_isbn)
-                let urlString = "https://elegant-bastille-81866.herokuapp.com/api/process"
+                let urlString = Const.baseUrl + "/api/process"
                 var request = URLRequest(url: URL(string:urlString)!)
                 request.httpMethod = "POST"
                 request.addValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -161,6 +176,66 @@ class ViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate{
             label.text = ""
         }
     }
+    
+    func check_book(isbn: String) {
+        let url = Const.baseUrl + "api/check_book/" + isbn;
+        print(url)
+        
+        Alamofire.request(url, method: .get, encoding: JSONEncoding.default).validate().responseJSON { response in
+            switch response.result {
+            case .success(let value):
+                
+                var titles: [String] = [];
+                var authors: [String] = [];
+                let json = JSON(value)
+//                print("json: \(json[1])")
+                json.forEach{(_, data) in
+                    print(data)
+                    guard let author = data.dictionary!["author"]?.stringValue else {
+                        return
+                    }
+//                    print(author)
+                    authors.append(author)
+                    
+                    guard let title = data.dictionary!["title"]?.stringValue else {
+                        return
+                    }
+                    titles.append(title)
+                    
+                }
+                print(titles)
+                print(authors)
+//                print(titles[0])
+//                print(dic)
+//                let data: Dictionary<String, JSON> = json.dictionaryValue
+//                let title: String = json[1]["title"].stringValue
+//                let author: String = json[0]["author"].stringValue
+                let alert = UIAlertController(title: titles[0], message: authors[0], preferredStyle: UIAlertControllerStyle.alert)
+                
+                let addList = UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: {
+                    (action: UIAlertAction!) in
+                    
+                })
+//                let cancel = UIAlertAction(title: "キャンセル", style: UIAlertActionStyle.destructive, handler:{
+//                    (action: UIAlertAction!) in
+//
+//                })
+                
+                alert.addAction(addList)
+//                alert.addAction(cancel)
+                
+                self.present(alert, animated: true, completion: nil)
+               
+                
+            case .failure(let error):
+                print(error)
+            }
+            
+        
+        
+        }
+    }
+    
     
 }
 
