@@ -93,22 +93,31 @@ class ViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate{
                         AudioServicesPlaySystemSound(kSystemSoundID_Vibrate) // バイブレーション
                         label.text = metadata.stringValue!
 //                        print(self.books_isbn.index(of: metadata.stringValue!))
-                        if self.books_isbn.index(of: metadata.stringValue!) == nil {
+                        if metadata.stringValue!.substring(to: metadata.stringValue!.index(after: metadata.stringValue!.startIndex)) == "1" {
+                            let alert1 = UIAlertController(title: "4または9から始まるバーコードを読み取ってください", message: "", preferredStyle: UIAlertControllerStyle.alert)
+                            let check_presence = UIAlertAction(title: "閉じる", style: UIAlertActionStyle.default, handler: {
+                                (action: UIAlertAction!) in
+                                
+                            })
+                            alert1.addAction(check_presence)
+                            self.present(alert1, animated: true, completion: nil)
+                            
+                        }else if self.books_isbn.index(of: metadata.stringValue!) == nil {
                             print(self.books_isbn)
                             let tmp = metadata.stringValue!
                             check_book(isbn: tmp)
                             self.books_isbn.append(tmp)
                         } else {
-                            let alert1 = UIAlertController(title: "すでにスキャン済みです", message: "", preferredStyle: UIAlertControllerStyle.alert)
+                            let alert2 = UIAlertController(title: "すでにスキャン済みです", message: "", preferredStyle: UIAlertControllerStyle.alert)
                             
                             let check_presence = UIAlertAction(title: "閉じる", style: UIAlertActionStyle.default, handler: {
                                 (action: UIAlertAction!) in
                                 
                             })
                            
-                            alert1.addAction(check_presence)
+                            alert2.addAction(check_presence)
                             
-                            self.present(alert1, animated: true, completion: nil)
+                            self.present(alert2, animated: true, completion: nil)
                         }
                         
                         detectionArea.layer.borderColor = UIColor.white.cgColor
@@ -126,8 +135,6 @@ class ViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate{
     }
     
     @IBAction func sendBooksData(_ sender: Any) {
-        
-        
         self.dismiss(animated: true, completion: nil)
     }
     
@@ -135,31 +142,32 @@ class ViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate{
         
         if let navVC = segue.destination as? UINavigationController{
             if let webViewVC = navVC.viewControllers[0] as? WebViewController{
-                print(self.books_isbn)
-                let urlString = Const.baseUrl + "/api/process"
-                var request = URLRequest(url: URL(string:urlString)!)
-                request.httpMethod = "POST"
-                request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-                let params: [String: Any] = [
-                    "student_id": self.studentNum,
-                    "books": self.books_isbn
-                ]
-                print(params)
-                do{
-                    request.httpBody = try JSONSerialization.data(withJSONObject: params, options: [])
-                }catch{
-                    print(error.localizedDescription)
-                }
-                // use NSURLSessionDataTask
-                let task = URLSession.shared.dataTask(with: request, completionHandler: {data, response, error in
-                    if (error == nil) {
-                        let result = String(data: data!, encoding: .utf8)!
-                        print(result)
-                    } else {
-                        print(error ?? "")
-                    }
-                })
-                task.resume()
+//                print(self.books_isbn)
+//                let urlString = Const.baseUrl + "/api/process"
+//                var request = URLRequest(url: URL(string:urlString)!)
+//                request.httpMethod = "POST"
+//                request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+//                let params: [String: Any] = [
+//                    "student_id": self.studentNum,
+//                    "books": self.books_isbn
+//                ]
+//                print(params)
+//                do{
+//                    request.httpBody = try JSONSerialization.data(withJSONObject: params, options: [])
+//                }catch{
+//                    print(error.localizedDescription)
+//                }
+//                // use NSURLSessionDataTask
+//                let task = URLSession.shared.dataTask(with: request, completionHandler: {data, response, error in
+//                    if (error == nil) {
+//                        let result = String(data: data!, encoding: .utf8)!
+//                        print(result)
+//                    } else {
+//                        print(error ?? "")
+//                    }
+//                })
+//                task.resume()
+                webViewVC.books_isbn = self.books_isbn
                 self.books_isbn = []
                 webViewVC.studentNum = self.studentNum
             }

@@ -28,7 +28,7 @@
 	<dict>
 		<key>NSExceptionDomains</key>
 		<dict>
-			<key>ec2-34-201-51-32.compute-1.amazonaws.com</key>
+			<key>v150-95-157-57.a096.g.tyo1.static.cnode.io</key>
 			<dict>
 				<key>NSExceptionRequiresForwardSecrecy</key>
 				<false/>

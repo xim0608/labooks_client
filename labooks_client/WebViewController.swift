@@ -7,20 +7,55 @@
 //
 
 import UIKit
+import SwiftyJSON
+import Alamofire
 
-class WebViewController: UIViewController, UIWebViewDelegate {
-    var studentNum:String = ""
-    @IBOutlet weak var webView: UIWebView!
+class WebViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+//    var cellItems = NSMutableArray()
+    let cellNum = 10
+    var items: [JSON] = []
+    var studentNum: String = ""
+    var books_isbn: [String] = []
+    @IBOutlet weak var tableView: UITableView!
     
+    
+//    tableView.dataSource = self
+//    self.view.addSubview(tableView)
+
     override func viewDidLoad() {
         
         super.viewDidLoad()
-        usleep(3000000)
+//        var itemArray: NSMutableArray = []
+        let tableView = UITableView()
+        tableView.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height)
+        tableView.delegate = self
+        tableView.dataSource = self
+        self.view.addSubview(tableView)
         
-        webView.delegate = self
-        let urlString = "https://elegant-bastille-81866.herokuapp.com/api/rentals/" + self.studentNum
-        var request = URLRequest(url: URL(string:urlString)!)
-        webView.loadRequest(request)
+        
+        
+        
+//        usleep(3000000)
+        let params: [String:Any] = [
+            "studentNum": self.studentNum,
+            "books_isbn": self.books_isbn
+        ]
+        let postURL = Const.baseUrl + "api/process"
+        Alamofire.request(postURL, method: .post, parameters: params, encoding: JSONEncoding.default)
+            .responseJSON { response in
+                debugPrint(response)
+                let json = JSON(response.result.value ?? 0)
+                json.forEach{(_, data) in
+                    self.items.append(data)
+                }
+                tableView.reloadData()
+                
+        }
+    
+//        webView.delegate = self
+//        let urlString = Const.baseUrl + self.studentNum
+//        var request = URLRequest(url: URL(string:urlString)!)
+//        webView.loadRequest(request)
 
         
 
@@ -31,20 +66,22 @@ class WebViewController: UIViewController, UIWebViewDelegate {
     @IBAction func backToTop(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
     }
+    // tableのcellにAPIから受け取ったデータを入れる
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = UITableViewCell(style: .subtitle, reuseIdentifier: "TableCell")
+        cell.textLabel?.text = items[indexPath.row]["title"].string
+        cell.detailTextLabel?.text = "著者 : \(items[indexPath.row]["author"].stringValue)"
+        return cell
+    }
+
+    // cellの数を設定
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return items.count
+    }
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
-    
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }

@@ -8,5 +8,5 @@
 
 import Foundation
 struct Const {
-    static let baseUrl = "http://ec2-34-201-51-32.compute-1.amazonaws.com/"
+    static let baseUrl = "http://v150-95-157-57.a096.g.tyo1.static.cnode.io/"
 }
